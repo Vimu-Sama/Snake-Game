@@ -5,6 +5,10 @@ using UnityEngine;
 public class ManageBody : MonoBehaviour
 {
     int powerUpType = 0;
+    [HideInInspector] public bool isHealth = true;
+    [Header("Snake PowerUp Colors")]
+    [SerializeField] Color[] colors = new Color[3] ;
+    Color originalColor ;
     //powerUpType= 1 -> shield power up
     //powerUpType= 2 -> score booster power up
     //powerUpType= 3 -> speed booster power up
@@ -15,10 +19,14 @@ public class ManageBody : MonoBehaviour
     [SerializeField] Transform snakebodyGameobject;
     [HideInInspector] public bool isDestroying = false;
     [SerializeField] ScoreKeeper scoreKeeper;
+    [SerializeField] PowerSpawn PowerSpawner;
+    [SerializeField] GameObject powerUpHalo;
     private void Awake()
     {
         powerUpType = 0;
         onlyOnetime = false;
+        isHealth = false;
+        originalColor = powerUpHalo.GetComponent<SpriteRenderer>().color;
        //snakeBody = new List<Transform>();
        //snakeBody.Add(this.transform);
     }
@@ -50,8 +58,8 @@ public class ManageBody : MonoBehaviour
     {
         yield return new WaitForSeconds(5);
         powerUpType = 0;
-        Debug.Log("the thing got settled");
         onlyOnetime = false;
+        powerUpHalo.GetComponent<SpriteRenderer>().color = originalColor;
     }
     public int GetPowerType()
     {
@@ -59,6 +67,10 @@ public class ManageBody : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(isDestroying)
+        {
+            return;
+        }
         if(collision.tag== "Food")
         {
             Transform segment= Instantiate(this.snakebodyGameobject);
@@ -68,7 +80,8 @@ public class ManageBody : MonoBehaviour
             if (powerUpType == 2)
                 multiplier = 2;
             scoreKeeper.score += (multiplier*10);
-            
+            Destroy(collision.gameObject);
+
         }
         else if(collision.tag== "Anti Food" && scoreKeeper.score!=0)
         {
@@ -76,25 +89,35 @@ public class ManageBody : MonoBehaviour
             snakeBody.Remove(instance);//snakeBody[snakeBody.Count - 1]);
             Destroy(instance.gameObject);
             scoreKeeper.score -= 10;
+            Destroy(collision.gameObject);
             //Destroy(collision.gameObject);
         }
         else if (collision.tag == "ShieldPower")
         {
             powerUpType = 1;
+            PowerSpawner.timePassed = 0f;
+            powerUpHalo.GetComponent<SpriteRenderer>().color = colors[0];
+            Destroy(collision.gameObject);
         }
         else if (collision.tag == "ScoreBooster")
         {
             powerUpType=2;
+            PowerSpawner.timePassed = 0f;
+            powerUpHalo.GetComponent<SpriteRenderer>().color = colors[1];
+            Destroy(collision.gameObject);
         }
         else if (collision.tag == "SpeedBooster")
         {
             powerUpType = 3;
+            PowerSpawner.timePassed= 0f;
+            powerUpHalo.GetComponent<SpriteRenderer>().color = colors[2];
+            Destroy(collision.gameObject);
         }
-        else if(collision.tag== "Player" && GetComponent<Movement>().haveTakenInput && (powerUpType!= 1))
+        else if(collision.tag== this.tag && GetComponent<Movement>().haveTakenInput && (powerUpType!= 1))
         {
             InitiateDestruction();
         }
-        Destroy(collision.gameObject);
+        
     }
 
 
@@ -102,15 +125,6 @@ public class ManageBody : MonoBehaviour
     {
         GetComponent<Movement>().movespeed = 0;
         isDestroying = true;
-        StartCoroutine(DestroySnake());
     }
-    IEnumerator DestroySnake()
-    {
-        for(int i=snakeBody.Count-1; i>=0; i--)
-        {
-            //Destroy(snakeBody[i].gameObject);
-            yield return new WaitForSeconds(0.2f);
-        }
-    }
-
+    
 }

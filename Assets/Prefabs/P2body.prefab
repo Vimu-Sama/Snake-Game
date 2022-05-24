@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7204557571864290089}
   m_Layer: 0
   m_Name: P2body
-  m_TagString: Player
+  m_TagString: Player2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

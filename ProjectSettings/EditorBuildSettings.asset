@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 9634f8157d4313445823899863edbba7
+  - enabled: 1
+    path: Assets/Scenes/Solo Snake 1.unity
+    guid: 72c721bdf9e87e0459a77ce4249ae3d4
+  - enabled: 1
     path: Assets/Scenes/Versus Snake.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/Scenes/Solo Game Over.unity
+    guid: e68050ce5411d194e84b3bacfbceda19
+  - enabled: 0
+    path: Assets/Scenes/Versus Game Over.unity
+    guid: e3a978e20020f5747b6c0a5518a85cd3
   m_configObjects: {}

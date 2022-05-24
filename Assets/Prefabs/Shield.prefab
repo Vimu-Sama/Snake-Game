@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2325383162464295468}
   - component: {fileID: 2325383162464295469}
   - component: {fileID: 2325383162464295471}
+  - component: {fileID: 4650197536125006987}
   m_Layer: 0
   m_Name: Shield
   m_TagString: ShieldPower
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 3625043607559282579, guid: 19fb86013d8c24d6cb8410c0aadf30fa, type: 3}
-  m_Color: {r: 0.9636673, g: 0.990566, b: 0.15325731, a: 1}
+  m_Color: {r: 0.8165099, g: 0.9622642, b: 0.030865014, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -111,3 +112,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &4650197536125006987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2325383162464295475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03c5dffb27c92c479eaad634763e157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLife: 10

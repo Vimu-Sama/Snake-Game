@@ -9,6 +9,7 @@ TagManager:
   - ScoreBooster
   - SpeedBooster
   - ShieldPower
+  - Player2
   layers:
   - Default
   - TransparentFX

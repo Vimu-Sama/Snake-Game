@@ -20,7 +20,7 @@ public class RandomSpawn : MonoBehaviour
         PositionRandomizer();
         if(instance==null)
         {
-            int randomNumber = Random.Range(0, 2);
+            int randomNumber = Random.Range(0, 5);
             instance = Instantiate(Food[randomNumber], randomPosition, Quaternion.identity);
         }
     }

@@ -6,7 +6,13 @@ using TMPro;
 public class ScoreKeeper : MonoBehaviour
 {
     [HideInInspector] public int score = 0;
-    [SerializeField] TextMeshProUGUI scoreText; 
+    public bool isGameOver = false;
+    [SerializeField] TextMeshProUGUI scoreText;
+
+    private void Awake()
+    {
+        scoreText.text = "Score: " + score;
+    }
     void Update()
     {
         scoreText.text = "Score: " + score;
