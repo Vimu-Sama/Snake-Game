@@ -64,9 +64,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7117297033511998829, guid: c04a489eab60cec4e970274d2e3c836b, type: 3}
+      propertyPath: food_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 32ffc4760e21e2047bc240fc5240aad5, type: 3}
+    - target: {fileID: 7117297033511998829, guid: c04a489eab60cec4e970274d2e3c836b, type: 3}
+      propertyPath: power_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 82ef14e8eaf235d49887a4faab9f3fc6, type: 3}
+    - target: {fileID: 7117297033511998829, guid: c04a489eab60cec4e970274d2e3c836b, type: 3}
       propertyPath: p2gameobject
       value: 
       objectReference: {fileID: 1915993568633185563, guid: 5fcefdfae1b03764b9f1c1082533d45f, type: 3}
+    - target: {fileID: 7117297033511998829, guid: c04a489eab60cec4e970274d2e3c836b, type: 3}
+      propertyPath: antifood_sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8d18cf1909454724b970e741b13df7a3, type: 3}
     - target: {fileID: 7117297033511998829, guid: c04a489eab60cec4e970274d2e3c836b, type: 3}
       propertyPath: snakebodyGameobject
       value: 

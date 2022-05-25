@@ -200,6 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74639f37aea088c49a7cc496594c330c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerUpType: 0
+  isHealth: 1
   colors:
   - {r: 0.81568635, g: 0.9607844, b: 0.03137255, a: 0.6627451}
   - {r: 0.9450981, g: 0.04705883, b: 0.7843138, a: 0.56078434}
@@ -213,6 +215,11 @@ MonoBehaviour:
   scoreKeeper: {fileID: 0}
   PowerSpawner: {fileID: 0}
   powerUpHalo: {fileID: 198968343}
+  otherplayer: {fileID: 0}
+  ultimateStatement: {fileID: 0}
+  food_sound: {fileID: 8300000, guid: 32ffc4760e21e2047bc240fc5240aad5, type: 3}
+  power_sound: {fileID: 8300000, guid: 82ef14e8eaf235d49887a4faab9f3fc6, type: 3}
+  antifood_sound: {fileID: 8300000, guid: 8d18cf1909454724b970e741b13df7a3, type: 3}
 --- !u!50 &7117297033511998818
 Rigidbody2D:
   serializedVersion: 4
@@ -247,6 +254,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.29395044, y: -0.006496936}
-  m_Size: {x: 0.37209916, y: 0.58}
-  m_Direction: 0
+  m_Offset: {x: 0.3, y: 0.01}
+  m_Size: {x: 0.3720992, y: 0.14058492}
+  m_Direction: 1
