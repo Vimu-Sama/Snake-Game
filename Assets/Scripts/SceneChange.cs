@@ -8,4 +8,14 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadScene(sceneNumber);
     }
+
+    public void StopTime()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void StartTime()
+    {
+        Time.timeScale = 2.5f;
+    }
 }
