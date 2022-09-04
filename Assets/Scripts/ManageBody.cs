@@ -28,15 +28,20 @@ public class ManageBody : MonoBehaviour
     [SerializeField] AudioClip food_sound;
     [SerializeField] AudioClip power_sound;
     [SerializeField] AudioClip antifood_sound;
+    tagType currentEnum ;          //enum for the current gameobject
+    tagType collisionEnum ;        //enum for the object detected OnTrigger()
+    SpriteRenderer spriteRenderer;
     private void Awake()
     {
         powerUpType = 0;
         onlyOnetime = false;
         ultimateStatement.text = "One of the Player died itself!";
         isHealth = false;
-        originalColor = powerUpHalo.GetComponent<SpriteRenderer>().color;
-       //snakeBody = new List<Transform>();
-       //snakeBody.Add(this.transform);
+        currentEnum = GetComponent<EnumDefiner>().GetTagType();
+        spriteRenderer= powerUpHalo.GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
+        //snakeBody = new List<Transform>();
+        //snakeBody.Add(this.transform);
     }
     private void FixedUpdate()
     {
@@ -67,7 +72,7 @@ public class ManageBody : MonoBehaviour
         yield return new WaitForSeconds(5);
         powerUpType = 0;
         onlyOnetime = false;
-        powerUpHalo.GetComponent<SpriteRenderer>().color = originalColor;
+        spriteRenderer.color = originalColor;   //to be changed here
     }
     public int GetPowerType()
     {
@@ -79,7 +84,10 @@ public class ManageBody : MonoBehaviour
         {
             return;
         }
-        if(collision.tag== "Food")
+
+        collisionEnum = collision.gameObject.GetComponent<EnumDefiner>().GetTagType();
+
+        if(collisionEnum==tagType.food)                             
         {
             Transform segment= Instantiate(this.snakebodyGameobject);
             AudioSource.PlayClipAtPoint(food_sound, Camera.main.transform.position);
@@ -92,7 +100,7 @@ public class ManageBody : MonoBehaviour
             Destroy(collision.gameObject);
 
         }
-        else if(collision.tag== "Anti Food" && scoreKeeper.score!=0)
+        else if(collisionEnum == tagType.antiFood)        
         {
             Transform instance = snakeBody[snakeBody.Count - 1];
             AudioSource.PlayClipAtPoint(antifood_sound, Camera.main.transform.position);
@@ -103,35 +111,35 @@ public class ManageBody : MonoBehaviour
          
             //Destroy(collision.gameObject);
         }
-        else if (collision.tag == "ShieldPower")
+        else if (collisionEnum == tagType.shieldPower)             
         {
             powerUpType = 1;
             AudioSource.PlayClipAtPoint(power_sound, Camera.main.transform.position);
             PowerSpawner.timePassed = 0f;
-            powerUpHalo.GetComponent<SpriteRenderer>().color = colors[0];
+            spriteRenderer.color = colors[0];    //to use getcomponent
             Destroy(collision.gameObject);
         }
-        else if (collision.tag == "ScoreBooster")
+        else if (collisionEnum == tagType.scoreBooster)                  
         {
             powerUpType=2;
             AudioSource.PlayClipAtPoint(power_sound, Camera.main.transform.position);
             PowerSpawner.timePassed = 0f;
-            powerUpHalo.GetComponent<SpriteRenderer>().color = colors[1];
+            spriteRenderer.color = colors[1];       //getcomponent
             Destroy(collision.gameObject);
         }
-        else if (collision.tag == "SpeedBooster")
+        else if (collisionEnum == tagType.speedBooster)               
         {
             powerUpType = 3;
             AudioSource.PlayClipAtPoint(power_sound, Camera.main.transform.position);
             PowerSpawner.timePassed= 0f;
-            powerUpHalo.GetComponent<SpriteRenderer>().color = colors[2];
+            spriteRenderer.color = colors[2];
             Destroy(collision.gameObject);
         }
-        else if(collision.tag== this.tag && GetComponent<Movement>().haveTakenInput && (powerUpType!= 1))
+        else if(collisionEnum == currentEnum && GetComponent<Movement>().haveTakenInput && (powerUpType!= 1))
         {
             InitiateDestruction();
         }
-        else if(collision.tag=="Player" && this.tag== "Player2")
+        else if(collisionEnum == tagType.player && currentEnum== tagType.player2)
         {
             if (otherplayer.GetComponent<ManageBody>().powerUpType != 1)
             {
@@ -147,7 +155,7 @@ public class ManageBody : MonoBehaviour
             }
             InitiateDestruction();
         }
-        else if(collision.tag=="Player2" && this.tag=="Player")
+        else if(collisionEnum== tagType.player2 && currentEnum== tagType.player)
         {
             if(otherplayer.GetComponent<ManageBody>().powerUpType!=1)
             {
