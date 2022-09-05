@@ -31,6 +31,9 @@ public class ManageBody : MonoBehaviour
     tagType currentEnum ;          //enum for the current gameobject
     tagType collisionEnum ;        //enum for the object detected OnTrigger()
     SpriteRenderer spriteRenderer;
+    WaitForSeconds deactivateTime;
+    Movement playerMovementScript;     //player movement script
+    ManageBody p2ManageBodyScript;    //managebody script for other player
     private void Awake()
     {
         powerUpType = 0;
@@ -40,6 +43,10 @@ public class ManageBody : MonoBehaviour
         currentEnum = GetComponent<EnumDefiner>().GetTagType();
         spriteRenderer= powerUpHalo.GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
+        deactivateTime = new WaitForSeconds(5);            //the time value can be changed but no need here
+        playerMovementScript = GetComponent<Movement>();
+        if(otherplayer)
+            p2ManageBodyScript = otherplayer.GetComponent<ManageBody>() ;
         //snakeBody = new List<Transform>();
         //snakeBody.Add(this.transform);
     }
@@ -61,7 +68,7 @@ public class ManageBody : MonoBehaviour
                 //snakeBody[i].position = Vector3.MoveTowards(snakeBody[i - 1].position, snakeBody[i].position, 0.5f);
 
             }
-            this.GetComponent<Movement>().ChangePosition();
+            playerMovementScript.ChangePosition();
         }
         
     }
@@ -69,7 +76,7 @@ public class ManageBody : MonoBehaviour
 
     IEnumerator DeactivatePowerUp(int typeofPowerUp)
     {
-        yield return new WaitForSeconds(5);
+        yield return deactivateTime;
         powerUpType = 0;
         onlyOnetime = false;
         spriteRenderer.color = originalColor;   //to be changed here
@@ -135,21 +142,21 @@ public class ManageBody : MonoBehaviour
             spriteRenderer.color = colors[2];
             Destroy(collision.gameObject);
         }
-        else if(collisionEnum == currentEnum && GetComponent<Movement>().haveTakenInput && (powerUpType!= 1))
+        else if(collisionEnum == currentEnum && playerMovementScript.haveTakenInput && (powerUpType!= 1))
         {
             InitiateDestruction();
         }
         else if(collisionEnum == tagType.player && currentEnum== tagType.player2)
         {
-            if (otherplayer.GetComponent<ManageBody>().powerUpType != 1)
+            if (p2ManageBodyScript.powerUpType != 1)
             {
                 ultimateStatement.text= "Player 2 bit Player 1";
                 if (otherplayer != null)
                 {
-                    int n = otherplayer.GetComponent<ManageBody>().snakeBody.Count;
+                    int n = p2ManageBodyScript.snakeBody.Count;
                     for (int i = 0; i < n; i++)
                     {
-                        otherplayer.GetComponent<ManageBody>().snakeBody[i].GetComponent<Transform>().localScale = new Vector3(0, 0, 0);
+                        p2ManageBodyScript.snakeBody[i].GetComponent<Transform>().localScale = new Vector3(0, 0, 0);
                     }
                 }
             }
@@ -157,15 +164,15 @@ public class ManageBody : MonoBehaviour
         }
         else if(collisionEnum== tagType.player2 && currentEnum== tagType.player)
         {
-            if(otherplayer.GetComponent<ManageBody>().powerUpType!=1)
+            if(p2ManageBodyScript.powerUpType!=1)
             {
                 ultimateStatement.text= "Player 1 bit Player 2";
                 if (otherplayer != null)
                 {
-                    int n = otherplayer.GetComponent<ManageBody>().snakeBody.Count;
+                    int n = p2ManageBodyScript.snakeBody.Count;
                     for (int i = 0; i < n; i++)
                     {
-                        otherplayer.GetComponent<ManageBody>().snakeBody[i].GetComponent<Transform>().localScale = new Vector3(0, 0, 0);
+                        p2ManageBodyScript.snakeBody[i].GetComponent<Transform>().localScale = new Vector3(0, 0, 0);
                     }
                 }
             }
@@ -177,7 +184,7 @@ public class ManageBody : MonoBehaviour
 
     public void InitiateDestruction()
     {
-        GetComponent<Movement>().movespeed = 0;
+        playerMovementScript.movespeed = 0;
         isDestroying = true;
     }
     
