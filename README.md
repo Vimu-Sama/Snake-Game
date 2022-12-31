@@ -6,10 +6,10 @@
 
 Who doesn't know the classic snake game which was so prevalent in India, and on every device around 2000s. I have tried to build the same experience but with a zing of modern twist.<br>
 Some details about the project-<br>
-This is the upgraded version of the childhood snake game.<br>
-This game is a full-fledged local co-op experience with lots of fun.<br>
-Implemented power-ups like speed boost, score boost and shield.<br>
-Implemented the entire game loop along with the scoring system and win/lose condition.<br>
+* This is the upgraded version of the childhood snake game.<br>
+* This game is a full-fledged local co-op experience with lots of fun.<br>
+* Implemented power-ups like speed boost, score boost and shield.<br>
+* Implemented the entire game loop along with the scoring system and win/lose condition.<br>
 
 ## Getting Started
 
